@@ -1,5 +1,5 @@
+cat > services/embed.py << 'EOF'
 import os
-import json
 import openai
 from sqlalchemy.orm import Session
 from services.models import SessionLocal, Metadata
@@ -32,3 +32,4 @@ def generate_and_store_embeddings():
 
 if __name__ == "__main__":
     generate_and_store_embeddings()
+EOF
