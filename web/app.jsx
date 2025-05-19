@@ -4,9 +4,12 @@ import ReactDOM from 'react-dom/client';
 function App() {
   const [query, setQuery] = useState('');
 
-  const handleSearch = () => {
-    alert(`Searching for ${query}`);
-    // TODO: call /search API when ready
+      const [results, setResults] = useState([]);
+  const handleSearch = () => {         fetch(`/search?query=${encodeURIComponent(query)}`)
+      .then((res) => res.json())
+      .then((data) => setResults(data.results))
+      .catch((err) => console.error(err));
+    
   };
 
   return (
@@ -25,10 +28,16 @@ function App() {
         >
           Search
         </button>
+           <ul>
+             {results.map((item, i) => (
+               <li key={i}>{item.title || JSON.stringify(item)}</li>
+             ))}
+           </ul>
       </div>
     </div>
   );
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+
+  
