@@ -8,7 +8,7 @@ from services.models import SessionLocal, Metadata
 openai.api_key = os.getenv("OPENAI_API_KEY", "<YOUR_OPENAI_API_KEY>")
 
 def embed_text(text: str):
-    """Call OpenAI to embed a single text string using the new interface."""
+    """Call OpenAI to embed a single text string using the v1 API."""
     resp = openai.embeddings.create(
         model="text-embedding-ada-002",
         input=text
@@ -23,8 +23,6 @@ def generate_and_store_embeddings():
     for entry in entries:
         prompt = f"{entry.query} | {entry.discogs} | {entry.youtube}"
         embedding = embed_text(prompt)
-
-        # Store embedding on the Metadata record
         entry.embedding = embedding
         count += 1
 
