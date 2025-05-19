@@ -1,6 +1,4 @@
 from fastapi import FastAPI
-import os
-import requests
 
 app = FastAPI()
 
@@ -10,13 +8,10 @@ def health():
 
 @app.get("/search")
 def search(query: str):
-    # Uses Discogs API to fetch hip-hop metadata
-    token = os.getenv("DISCOGS_TOKEN", "<YOUR_DISCOGS_TOKEN>")
-    url = f"https://api.discogs.com/database/search?genre=hip-hop&q={query}&token={token}"
-    response = requests.get(url)
-    response.raise_for_status()
-    results = response.json().get("results", [])
-    return {"results": results}
+    """
+    Demo stub: always return an empty list for Discogs search.
+    """
+    return {"results": []}
 
 @app.get("/youtube")
 def youtube_search(query: str, maxResults: int = 5):
