@@ -8,7 +8,7 @@ from services.models import SessionLocal, Metadata
 openai.api_key = os.getenv("OPENAI_API_KEY", "<YOUR_OPENAI_API_KEY>")
 
 def embed_text(text: str):
-    """Call OpenAI to embed a single text string using the v1 API."""
+    """Call OpenAI to embed a single text string using v1 API."""
     resp = openai.embeddings.create(
         model="text-embedding-ada-002",
         input=text
