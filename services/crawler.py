@@ -1,9 +1,6 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 import os
 import requests
-from googleapiclient.discovery import build
-
-YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY", "<YOUR_YOUTUBE_KEY>")
 
 app = FastAPI()
 
@@ -24,23 +21,6 @@ def search(query: str):
 @app.get("/youtube")
 def youtube_search(query: str, maxResults: int = 5):
     """
-    Fetches YouTube video metadata for the given query.
+    Demo stub: always return an empty list for YouTube.
     """
-    try:
-        youtube = build("youtube", "v3", developerKey=YOUTUBE_API_KEY)
-        req = youtube.search().list(
-            q=query,
-            part="snippet",
-            maxResults=maxResults,
-            type="video"
-        )
-        res = req.execute()
-        videos = []
-        for item in res.get("items", []):
-            videos.append({
-                "title": item["snippet"]["title"],
-                "videoId": item["id"]["videoId"]
-            })
-        return {"videos": videos}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    return {"videos": []}
